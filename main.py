@@ -1,19 +1,33 @@
 import requests
+import pandas as pd
+from datetime import datetime
+from dotenv import load_dotenv
+import os
 
-chave_api = "QO8RUN8JR24D63t5PtR9kEQ794k88560G954IR53E5v336RQH8"
-ano_letivo = "2024"
+load_dotenv()
 
-url = f"https://apiqis.educacionalcloud.com.br/api/alunos/{chave_api}?ano_letivo={ano_letivo}"
+Auth = os.getenv('AP')
+endereco = os.getenv('URL')
 
 headers = {
-    "Accept": "application/json",
-    "Authorization": f"Bearer {chave_api}"
+    'Authorization': Auth,
+    'Accept': 'application/json'
 }
 
-response = requests.get(url, headers=headers)
+url = endereco
 
-if response.status_code == 200:
-    print("Resposta da API:", response.json())
-else:
-    print(f"Erro na requisição: {response.status_code}")
-    print("Detalhes:", response.text)
+response = requests.get(url, headers=headers)
+data = response.json()
+
+df = pd.DataFrame(data)
+
+# df_2025 = df[df['ano_competencia'] == '2025']
+df['valor_pago'] = pd.to_numeric(df['valor_pago'], errors='coerce')
+
+df_pago = df[df['valor_pago'].isnull() | (df['valor_pago'] == 0)]
+
+# print(df_2025)
+print(df_pago)
+
+df.to_csv('df_pago.csv', index=False)
+# df.to_csv('df_2025.csv', index=False)
