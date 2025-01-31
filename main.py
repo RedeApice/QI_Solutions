@@ -71,9 +71,9 @@ try:
         if 'nome_tipocarne' in item:
             nome_tipocarne = item['nome_tipocarne'].lower().replace(' ', '').replace('-', '')
             if 'km18' in nome_tipocarne:
-                item['nome_escola'] = 'Dom Henrique I'
-            else:
                 item['nome_escola'] = 'Dom Henrique II'
+            else:
+                item['nome_escola'] = 'Dom Henrique I'
 
     # Filtrar para pegar só os que estão com "valor_pago" == NULL
     df = pd.DataFrame(data)
