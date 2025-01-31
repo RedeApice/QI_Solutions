@@ -55,6 +55,7 @@ CREATE TABLE IF NOT EXISTS {tbl_name} (
 )
 ''')
 
+# Request na API do QI
 headers = {
     'Authorization': Auth,
     'Accept': 'application/json'
@@ -67,6 +68,8 @@ df = pd.DataFrame(data)
 df['valor_pago'] = pd.to_numeric(df['valor_pago'], errors='coerce')
 df_filtrado = df[df['valor_pago'].isna()]
 
+
+# INSERT no banco da Rede Ápice
 sql = f'''
 INSERT INTO {tbl_name} (
     ano_competencia, mes_competencia, cod_tipocarne, nome_tipocarne, cod_parcela, nome_aluno,
