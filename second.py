@@ -36,14 +36,18 @@ data = response.json()
 df = pd.DataFrame(data)
 df['valor_pago'] = pd.to_numeric(df['valor_pago'], errors='coerce')
 
+df_filtrado = df[df['valor_pago'].isna()]
+
 sql = f'''
 INSERT INTO {tbl_name} (data_pagamento, valor_pago, observacoes) 
 VALUES (%s, %s, %s)
 '''
-for _, row in df.iterrows():
+
+for _, row in df_filtrado.iterrows():
     cursor.execute(sql, (row.get('data_pagamento'), row['valor_pago'], row.get('observacoes', None)))
 
 connection.commit()
+
 cursor.close()
 connection.close()
 
