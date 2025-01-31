@@ -14,7 +14,7 @@ nome_banco = os.getenv('nome_banco')
 tbl_name = os.getenv('tbl_name')
 
 
-# Conectar
+# Conectar no Banco de Dados
 connection = pymysql.connect(host=host, user=usuario, password=senha, db=nome_banco)
 cursor = connection.cursor()
 
