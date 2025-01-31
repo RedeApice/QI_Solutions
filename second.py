@@ -39,7 +39,10 @@ df['valor_pago'] = pd.to_numeric(df['valor_pago'], errors='coerce')
 df_filtrado = df[df['valor_pago'].isna()]
 
 sql = f'''
-INSERT INTO {tbl_name} (data_pagamento, valor_pago, observacoes) 
+INSERT INTO {tbl_name} (ano_competencia, mes_competencia, cod_tipocarne, nome_tipocarne, cod_parcela, nome_aluno,
+cod_curso, curso, valor_bruto, valor_bolsa, valor_desconto, dt_vencimento, dt_desconto, cod_turma, turma, situacao, valor_pago,
+dt_pagamento, dt_credito, nome_usuario, linhaDigitavel, nossoNumero, banco, cdbnc, agencia, conta, tipoOperacao, acrescimo, menor
+observacao, valor_Taxa) 
 VALUES (%s, %s, %s)
 '''
 
