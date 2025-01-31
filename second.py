@@ -81,17 +81,22 @@ VALUES (
 '''
 
 for _, row in df_filtrado.iterrows():
-    cursor.execute(sql, (
-        row.get('ano_competencia'), row.get('mes_competencia'), row.get('cod_tipocarne'),
-        row.get('nome_tipocarne'), row.get('cod_parcela'), row.get('nome_aluno'),
-        row.get('cod_curso'), row.get('curso'), row.get('valor_bruto'), row.get('valor_bolsa'),
-        row.get('valor_desconto'), row.get('dt_vencimento'), row.get('dt_desconto'),
-        row.get('cod_turma'), row.get('turma'), row.get('situacao'), row.get('valor_pago'),
-        row.get('dt_pagamento'), row.get('dt_credito'), row.get('nome_usuario'), row.get('responsavel'),
-        row.get('linhaDigitavel'), row.get('nossoNumero'), row.get('banco'), row.get('cdbnc'),
-        row.get('agencia'), row.get('conta'), row.get('tipoOperacao'), row.get('acrescimo'),
-        row.get('menor'), row.get('observacao'), row.get('valor_Taxa')
-    ))
+    valores = [
+        None if pd.isna(valor) else valor
+        for valor in [
+            row.get('ano_competencia'), row.get('mes_competencia'), row.get('cod_tipocarne'),
+            row.get('nome_tipocarne'), row.get('cod_parcela'), row.get('nome_aluno'),
+            row.get('cod_curso'), row.get('curso'), row.get('valor_bruto'), row.get('valor_bolsa'),
+            row.get('valor_desconto'), row.get('dt_vencimento'), row.get('dt_desconto'),
+            row.get('cod_turma'), row.get('turma'), row.get('situacao'), row.get('valor_pago'),
+            row.get('dt_pagamento'), row.get('dt_credito'), row.get('nome_usuario'), row.get('responsavel'),
+            row.get('linhaDigitavel'), row.get('nossoNumero'), row.get('banco'), row.get('cdbnc'),
+            row.get('agencia'), row.get('conta'), row.get('tipoOperacao'), row.get('acrescimo'),
+            row.get('menor'), row.get('observacao'), row.get('valor_Taxa')
+        ]
+    ]
+
+    cursor.execute(sql, valores)
 
 connection.commit()
 
