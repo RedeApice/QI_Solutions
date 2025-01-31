@@ -64,6 +64,7 @@ response = requests.get(endereco, headers=headers)
 response.raise_for_status()
 data = response.json()
 
+# Filtrar para pegar só os que estão com "valor_pago" == NULL
 df = pd.DataFrame(data)
 df['valor_pago'] = pd.to_numeric(df['valor_pago'], errors='coerce')
 df_filtrado = df[df['valor_pago'].isna()]
