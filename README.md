@@ -1,5 +1,4 @@
-# Documentação do Projeto: Integração de Dados com API, Pandas e MySQL
-# QI Solutions
+# QI Solutions - Integração de Dados com API, Pandas e MySQL
 
 ## Visão Geral
 
